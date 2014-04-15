@@ -1,0 +1,41 @@
+---
+# driver:
+#   name: vagrant
+driver:
+  name: ec2
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
+  aws_ssh_key_id: aws_dev
+  ssh_key: <%= ENV['HOME'] %>/.ssh/aws_dev.pem
+  subnet_id: subnet-a792da8f
+  region: us-east-1
+  availability_zone: us-east-1b
+  security_group_ids: [ "sg-c204d2a7" ]
+driver_config:
+  # 11.10.4 required until https://tickets.opscode.com/browse/OHAI-562 ships
+  require_chef_omnibus: 11.10.4
+  # require_chef_omnibus: true
+
+provisioner:
+  name: chef_solo
+  # It might be a bug in kitchen-ec2 that this file doesn't get created but it
+  # is strictly necessary for ohai to consider this an ec2 instance and pick up
+  # the necessary values.  The knife-ec2 provisioner, for example, places this
+  # file during bootstrap.
+  vm:
+    provision:
+      - ['shell', {inline: "mkdir -p /etc/chef/ohai/hints && echo '{}' > /etc/chef/ohai/hints/ec2.json"}]
+
+platforms:
+  - name: ubuntu-12.04
+    driver:
+      image_id: ami-6f969506
+      flavor_id: c3.xlarge
+  # - name: centos-6.4
+
+suites:
+  - name: default
+    run_list:
+      - recipe[storage::ec2test]
+      - recipe[storage::default]
+    attributes:
