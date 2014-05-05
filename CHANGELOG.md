@@ -1,9 +1,3 @@
-# 0.1.0
+# 1.0.1
 
-Initial release of storage
-
-* Enhancements
-  * an enhancement
-
-* Bug Fixes
-  * a bug fix
+* Initial release
