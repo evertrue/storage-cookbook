@@ -8,7 +8,6 @@ driver:
   region: us-east-1
   availability_zone: us-east-1b
   security_group_ids: ['ci-testing']
-driver_config:
   require_chef_omnibus: true
 
 provisioner:
