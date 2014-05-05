@@ -12,9 +12,7 @@ driver:
   availability_zone: us-east-1b
   security_group_ids: [ "sg-c204d2a7" ]
 driver_config:
-  # 11.10.4 required until https://tickets.opscode.com/browse/OHAI-562 ships
-  require_chef_omnibus: 11.10.4
-  # require_chef_omnibus: true
+  require_chef_omnibus: true
 
 provisioner:
   name: chef_solo
