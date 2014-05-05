@@ -1,6 +1,4 @@
 ---
-# driver:
-#   name: vagrant
 driver:
   name: ec2
   aws_access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
@@ -16,13 +14,6 @@ driver_config:
 
 provisioner:
   name: chef_solo
-  # It might be a bug in kitchen-ec2 that this file doesn't get created but it
-  # is strictly necessary for ohai to consider this an ec2 instance and pick up
-  # the necessary values.  The knife-ec2 provisioner, for example, places this
-  # file during bootstrap.
-  vm:
-    provision:
-      - ['shell', {inline: "mkdir -p /etc/chef/ohai/hints && echo '{}' > /etc/chef/ohai/hints/ec2.json"}]
 
 platforms:
   - name: ubuntu-12.04
