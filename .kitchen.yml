@@ -10,6 +10,7 @@ driver:
   security_group_ids: ['ci-testing']
   flavor_id: c3.xlarge
   require_chef_omnibus: true
+  username: ubuntu
 
 provisioner:
   name: chef_solo
