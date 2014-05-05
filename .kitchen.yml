@@ -5,10 +5,9 @@ driver:
   aws_secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
   aws_ssh_key_id: aws_dev
   ssh_key: <%= ENV['HOME'] %>/.ssh/aws_dev.pem
-  subnet_id: subnet-a792da8f
   region: us-east-1
   availability_zone: us-east-1b
-  security_group_ids: [ "sg-c204d2a7" ]
+  security_group_ids: ['ci-testing']
 driver_config:
   require_chef_omnibus: true
 
