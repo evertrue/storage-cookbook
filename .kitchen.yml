@@ -22,7 +22,6 @@ platforms:
     tags:
       Name: vagrant-default-ubuntu-1204
       Env: public
-  # - name: centos-6.4
 
 suites:
   - name: ec2
