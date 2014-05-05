@@ -8,6 +8,7 @@ driver:
   region: us-east-1
   availability_zone: us-east-1b
   security_group_ids: ['ci-testing']
+  flavor_id: c3.xlarge
   require_chef_omnibus: true
 
 provisioner:
@@ -17,7 +18,6 @@ platforms:
   - name: ubuntu-12.04
     driver:
       image_id: ami-6f969506
-      flavor_id: c3.xlarge
   # - name: centos-6.4
 
 suites:
