@@ -16,9 +16,12 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: ubuntu-12.04
-    driver:
-      image_id: ami-6f969506
+- name: ubuntu-12.04
+  driver:
+    image_id: ami-36aa4d5e
+    tags:
+      Name: vagrant-default-ubuntu-1204
+      Env: public
   # - name: centos-6.4
 
 suites:
