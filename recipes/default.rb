@@ -35,26 +35,41 @@ if node['ec2'] &&
       action :umount
     end
   end
-
-  ephemeral_mounts = []
-
-  dev_names.each_with_index do |dev_name, i|
-    mount_point = "/mnt/dev#{i}"
-
-    directory mount_point do
-      recursive true
-    end
-
-    mount mount_point do
-      device dev_name
-      fstype node['filesystem'][dev_name]['fs_type']
-      action :mount
-    end
-
-    ephemeral_mounts << mount_point
+elsif node['etc']['passwd']['vagrant']
+  Chef::Log.info 'Using Vagrant storage'
+  local_storage = node['block_device'].select { |bd, _conf| bd != 'sda' }.select do |_bd, bd_conf|
+    bd_conf['model'] == 'VBOX HARDDISK'
   end
-
-  node.set['et_base']['ephemeral_mounts'] = ephemeral_mounts
+  dev_names = local_storage.map do |bd, _conf|
+    "/dev/#{bd}"
+  end
+  Chef::Log.info 'Discovered ephemeral devices: ' + dev_names.join(', ')
 else
   Chef::Log.info('Not a recognized hypervisor type.  Not mounting any volumes.')
 end
+
+node.set['storage']['ephemeral_mounts'] = dev_names.each_with_index.map do |dev_name, i|
+  mount_point = "/mnt/dev#{i}"
+
+  execute "format #{dev_name} as ext3" do
+    command "mke2fs -j -F #{dev_name} -t ext3"
+    action :nothing
+    not_if { `file -s #{dev_name}` =~ /filesystem data/ }
+  end.run_action(:run)
+
+  directory mount_point do
+    recursive true
+    action :nothing
+  end.run_action(:create)
+
+  mount mount_point do
+    device dev_name
+    # fstype `file -s #{dev_name}`[/\b\w+\b filesystem data/].split.first
+    action :nothing
+  end.run_action(:mount)
+
+  mount_point
+end if dev_names && !dev_names.empty?
+
+Chef::Log.info 'Configured these ephemeral mounts: ' +
+  node['storage']['ephemeral_mounts'].inspect
