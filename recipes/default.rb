@@ -11,21 +11,22 @@
 # circumstances.
 
 # Find all ephemeral block devices and mount them in subdirectories inside /mnt
+
 if node['ec2'] &&
   node['ec2']['block_device_mapping_ephemeral1']
   Chef::Log.info('Running on an ec2 instance with multiple block devices.  ' \
     'Setting up ephemeral mounts.')
   fail 'Directory /mnt not empty' if Dir.entries('/mnt') - %w(lost+found . ..) != []
 
-  e_block_devs = node['ec2'].select do |k, v|
+  e_block_devs = node['ec2'].select do |k, _v|
     k =~ /^block_device_mapping_ephemeral.*/
   end
 
-  dev_names = e_block_devs.map do |k, v|
+  dev_names = e_block_devs.map do |_k, v|
     "/dev/#{v.sub(/^s/, 'xv')}"
   end
 
-  mnt_device = node['filesystem'].find { |k, v| v['mount'] == '/mnt' }
+  mnt_device = node['filesystem'].find { |_k, v| v['mount'] == '/mnt' }
 
   unless mnt_device.nil?
     mount '/mnt' do
