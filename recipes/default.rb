@@ -35,8 +35,8 @@ if node['ec2'] &&
     mount '/mnt' do
       fstype mnt_device.last['fs_type']
       device mnt_device.first
-      action :umount
-    end
+      action :nothing
+    end.run_action(:umount)
   end
 elsif node['etc']['passwd']['vagrant']
   Chef::Log.info 'Using Vagrant storage'
