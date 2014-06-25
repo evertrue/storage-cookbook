@@ -28,7 +28,10 @@ if node['ec2'] &&
 
   mnt_device = node['filesystem'].find { |_k, v| v['mount'] == '/mnt' }
 
-  unless mnt_device.nil?
+  if mnt_device.nil?
+    Chef::Log.info 'No /mnt devices found in node[:filesystem]:'
+    Chef::Log.info node['filesystem'].inspect
+  else
     mount '/mnt' do
       fstype mnt_device.last['fs_type']
       device mnt_device.first
