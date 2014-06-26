@@ -75,4 +75,4 @@ node.set['storage']['ephemeral_mounts'] = dev_names.each_with_index.map do |dev_
 end if dev_names && !dev_names.empty?
 
 Chef::Log.info 'Configured these ephemeral mounts: ' +
-  node['storage']['ephemeral_mounts'].inspect
+  node['storage']['ephemeral_mounts'].inspect if node['storage']['ephemeral_mounts']
