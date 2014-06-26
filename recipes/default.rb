@@ -37,8 +37,9 @@ if node['storage'] == {}
   end
 
   unless storage.dev_names.empty?
-    node.set['storage']['ephemeral_mounts'] = storage.dev_names.each_with_index.map do |dev_name, i|
-      mount_point = "/mnt/dev#{i}"
+    node.set['storage']['ephemeral_mounts'] =
+      storage.dev_names.each_with_index.map do |dev_name, i|
+        mount_point = "/mnt/dev#{i}"
 
         storage_format_mount mount_point do
           device_name dev_name
@@ -48,10 +49,9 @@ if node['storage'] == {}
         mount_point
       end
 
+    Chef::Log.info 'Configured these ephemeral mounts: ' +
+      node['storage']['ephemeral_mounts'].join(' ')
   end
-
-  Chef::Log.info 'Configured these ephemeral mounts: ' +
-    node['storage']['ephemeral_mounts'].inspect if node['storage']['ephemeral_mounts']
 else
-  Chef::Log.info "Storage already configured: #{node['storage'].inspect}"
+  Chef::Log.info("Storage already configured: #{node['storage'].inspect}")
 end
