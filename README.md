@@ -1,10 +1,11 @@
 # storage-cookbook
 
-TODO: Enter the cookbook description here.
+A cookbook for mounting all available EC2 ephemeral volumes and saving their
+respective mount points into node attributes.
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
+EC2 only (but it will fail cleanly on other platforms).
 
 ## Attributes
 
@@ -16,10 +17,10 @@ TODO: List your supported platforms.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['storage']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['storage']['ephemeral_mounts']</tt></td>
+    <td>Array</td>
+    <td>An array of strings, set automatically by the recipe, to be used by other cookbooks, which lists the mount points of ephemeral storage devices.</td>
+    <td><tt>automatic</tt></td>
   </tr>
 </table>
 
@@ -27,7 +28,13 @@ TODO: List your supported platforms.
 
 ### storage::default
 
-Include `storage` in your node's `run_list`:
+Include `storage` in a wrapper cookbook:
+
+```ruby
+include_recipe 'storage::default'
+```
+
+...or include `storage` in your node's `run_list`:
 
 ```json
 {
