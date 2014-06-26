@@ -40,25 +40,14 @@ if node['storage'] == {}
     node.set['storage']['ephemeral_mounts'] = storage.dev_names.each_with_index.map do |dev_name, i|
       mount_point = "/mnt/dev#{i}"
 
-      execute "format #{dev_name} as ext3" do
-        command "mke2fs -j -F #{dev_name} -t ext3"
-        action :nothing
-        not_if { `file -s #{dev_name}` =~ /filesystem data/ }
-      end.run_action(:run)
+        storage_format_mount mount_point do
+          device_name dev_name
+          action :nothing
+        end.run_action(:run)
 
-      directory mount_point do
-        recursive true
-        action :nothing
-      end.run_action(:create)
+        mount_point
+      end
 
-      mount mount_point do
-        device dev_name
-        # fstype `file -s #{dev_name}`[/\b\w+\b filesystem data/].split.first
-        action :nothing
-      end.run_action(:mount)
-
-      mount_point
-    end
   end
 
   Chef::Log.info 'Configured these ephemeral mounts: ' +
