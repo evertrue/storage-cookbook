@@ -1,3 +1,9 @@
+# 2.1.0
+
+* Fixed error making it impossible to converge twice
+* Move format-mount to a resource
+* Library-ify a bunch of small functions
+
 # 2.0.2
 
 * Add some real content to the README
