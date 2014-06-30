@@ -1,3 +1,7 @@
+# 2.1.1
+
+* Look for ephemeral0 in ec2 attributes
+
 # 2.1.0
 
 * Fixed error making it impossible to converge twice
