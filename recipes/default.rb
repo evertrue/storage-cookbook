@@ -18,7 +18,7 @@ if node['storage'] == {}
   storage = EverTools::Storage.new(node)
 
   if node['ec2'] &&
-    node['ec2']['block_device_mapping_ephemeral1']
+    node['ec2']['block_device_mapping_ephemeral0']
     Chef::Log.info('Using ec2 ephemeral storage')
 
     fail 'Directory /mnt not empty' if Dir.entries('/mnt') - %w(lost+found . ..) != []
