@@ -3,7 +3,7 @@ module EverTools
     def dev_names
       names = []
       if @node['ec2'] &&
-        @node['ec2']['block_device_mapping_ephemeral1']
+        @node['ec2']['block_device_mapping_ephemeral0']
         names = ec2_dev_names
       elsif @node['etc']['passwd']['vagrant']
         names = vagrant_dev_names
