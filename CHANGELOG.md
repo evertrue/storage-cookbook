@@ -1,3 +1,7 @@
+# 2.1.2
+
+* s/ephemeral1/ephemeral0/ in library this time
+
 # 2.1.1
 
 * Look for ephemeral0 in ec2 attributes
