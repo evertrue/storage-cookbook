@@ -1,3 +1,8 @@
+# 2.1.3
+
+* Use /proc/mounts (rather than node attributes) to see if we need to run
+* Fix method reference error in vagrant support
+
 # 2.1.2
 
 * s/ephemeral1/ephemeral0/ in library this time
