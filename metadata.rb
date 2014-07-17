@@ -4,6 +4,6 @@ maintainer_email 'eric.herot@evertrue.com'
 license          'All rights reserved'
 description      'Installs/Configures storage'
 long_description 'Installs/Configures storage'
-version          '2.1.2'
+version          '2.1.3'
 
 depends 'ohai'
