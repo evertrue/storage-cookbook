@@ -40,7 +40,7 @@ module EverTools
     end
 
     def vagrant_dev_names
-      storage.local.map do |bd, _conf|
+      local.map do |bd, _conf|
         "/dev/#{bd}"
       end
     end
