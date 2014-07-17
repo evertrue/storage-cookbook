@@ -14,7 +14,7 @@
 
 Chef::Log.debug("Storage info: #{node['storage'].inspect}")
 
-if node['storage'] == {}
+if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
   storage = EverTools::Storage.new(node)
 
   if node['ec2'] &&
