@@ -1,3 +1,7 @@
+# 2.1.4
+
+* Populate ephemeral_mounts attribute even if /mnt/dev is already mounted
+
 # 2.1.3
 
 * Use /proc/mounts (rather than node attributes) to see if we need to run
