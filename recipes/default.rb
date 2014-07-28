@@ -14,8 +14,9 @@
 
 Chef::Log.debug("Storage info: #{node['storage'].inspect}")
 
+storage = EverTools::Storage.new(node)
+
 if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
-  storage = EverTools::Storage.new(node)
 
   if node['ec2'] &&
     node['ec2']['block_device_mapping_ephemeral0']
@@ -48,10 +49,11 @@ if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
 
         mount_point
       end
-
-    Chef::Log.info 'Configured these ephemeral mounts: ' +
-      node['storage']['ephemeral_mounts'].join(' ')
   end
 else
-  Chef::Log.info("Storage already configured: #{node['storage'].inspect}")
+  node.set['storage']['ephemeral_mounts'] =
+    storage.dev_names.each_with_index.map { |_dev_name, i| "/mnt/dev#{i}" }
 end
+
+Chef::Log.info 'Configured these ephemeral mounts: ' +
+  node['storage']['ephemeral_mounts'].join(' ')
