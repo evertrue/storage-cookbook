@@ -25,11 +25,13 @@ if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
     fail 'Directory /mnt not empty' if Dir.entries('/mnt') - %w(lost+found . ..) != []
 
     unless storage.mnt_device.nil?
-      mount '/mnt' do
+      m = mount '/mnt' do
         fstype storage.mnt_device.last['fs_type']
         device storage.mnt_device.first
         action :nothing
-      end.run_action(:umount)
+      end
+      m.run_action(:umount)
+      m.run_action(:disable)
     end
   elsif node['etc']['passwd']['vagrant']
     Chef::Log.info('Using Vagrant storage')
@@ -53,6 +55,15 @@ if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
 else
   node.set['storage']['ephemeral_mounts'] =
     storage.dev_names.each_with_index.map { |_dev_name, i| "/mnt/dev#{i}" }
+
+  # Uncomment the following code when https://github.com/opscode/chef/pull/1719
+  # is actually merged and shipped.
+  #
+  # mount '/mnt' do
+  #   action :disable
+  #   device '/dev/xvdb'
+  #   only_if { !node['storage']['ephemeral_mounts'].size.zero? }
+  # end
 end
 
 Chef::Log.info 'Configured these ephemeral mounts: ' +

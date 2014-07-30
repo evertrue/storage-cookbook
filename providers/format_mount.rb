@@ -15,6 +15,6 @@ action :run do
 
   mount new_resource.mount_point do
     device new_resource.device_name
-    action :mount
+    action [:mount, :enable]
   end
 end
