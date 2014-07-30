@@ -1,3 +1,7 @@
+# 2.1.5
+
+* Disable /mnt mount (instead of just unmounting it) and enable the new mounts
+
 # 2.1.4
 
 * Populate ephemeral_mounts attribute even if /mnt/dev is already mounted
