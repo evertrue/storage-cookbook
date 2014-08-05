@@ -1,3 +1,7 @@
+# 2.1.6
+
+* Confirm (using Fog) that the current instance flavor has instance storage
+
 # 2.1.5
 
 * Disable /mnt mount (instead of just unmounting it) and enable the new mounts

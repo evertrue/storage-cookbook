@@ -14,13 +14,15 @@
 
 Chef::Log.debug("Storage info: #{node['storage'].inspect}")
 
+include_recipe 'et_fog'
+
 storage = EverTools::Storage.new(node)
 
-if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
+if storage.instance_store_volumes? &&
+  File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
 
   if node['ec2'] &&
     node['ec2']['block_device_mapping_ephemeral0']
-    Chef::Log.info('Using ec2 ephemeral storage')
 
     fail 'Directory /mnt not empty' if Dir.entries('/mnt') - %w(lost+found . ..) != []
 
@@ -33,10 +35,6 @@ if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
       m.run_action(:umount)
       m.run_action(:disable)
     end
-  elsif node['etc']['passwd']['vagrant']
-    Chef::Log.info('Using Vagrant storage')
-  else
-    Chef::Log.debug('Not a recognized hypervisor type.  Doing nothing.')
   end
 
   unless storage.dev_names.empty?
@@ -67,4 +65,4 @@ else
 end
 
 Chef::Log.info 'Configured these ephemeral mounts: ' +
-  node['storage']['ephemeral_mounts'].join(' ')
+  node['storage']['ephemeral_mounts'].join(' ') if node['storage']
