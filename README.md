@@ -2,7 +2,7 @@
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/storage.svg?style=flat)](https://supermarket.getchef.com/cookbooks/storage)
 [![Build Status](http://img.shields.io/travis/evertrue/storage-cookbook.svg?style=flat)](https://travis-ci.org/evertrue/storage-cookbook)
-[![Coverage Status](http://img.shields.io/coveralls/evertrue/storage.svg?style=flat)](https://coveralls.io/r/evertrue/storage)
+[![Coverage Status](http://img.shields.io/coveralls/evertrue/storage-cookbook.svg?style=flat)](https://coveralls.io/r/evertrue/storage-cookbook)
 
 A cookbook for mounting all available EC2 ephemeral volumes and saving their
 respective mount points into node attributes.
