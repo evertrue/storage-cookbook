@@ -19,7 +19,7 @@ provisioner:
 platforms:
 - name: ubuntu-12.04
   driver:
-    image_id: ami-4287562a
+    image_id: ami-e002a788
     tags:
       Name: vagrant-default-ubuntu-1204
       Env: public
