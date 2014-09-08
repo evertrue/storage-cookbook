@@ -1,3 +1,9 @@
+# 2.1.8
+
+* Fix the way we deal with a lack of anything to mount and don't blow up when not on ec2
+* Test local vagrant storage provisioning (so that wrapper cookbooks stop choking on our crappy code)
+* Bump the AMI to a newer version
+
 # 2.1.7
 
 * Update to et_fog v1.1.1 to avoid issues with `apt-get update` & installing `build-essential` at compile time

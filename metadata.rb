@@ -4,7 +4,7 @@ maintainer_email 'eric.herot@evertrue.com'
 license          'All rights reserved'
 description      'Installs/Configures storage'
 long_description 'Installs/Configures storage'
-version          '2.1.7'
+version          '2.1.8'
 
 depends 'ohai'
 depends 'et_fog', '~> 1.1.1'
