@@ -1,3 +1,7 @@
+# 2.1.7
+
+* Update to et_fog v1.1.1 to avoid issues with `apt-get update` & installing `build-essential` at compile time
+
 # 2.1.6
 
 * Confirm (using Fog) that the current instance flavor has instance storage
