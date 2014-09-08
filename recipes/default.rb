@@ -17,12 +17,19 @@ Chef::Log.debug("Storage info: #{node['storage'].inspect}")
 include_recipe 'et_fog'
 
 storage = EverTools::Storage.new(node)
+ephemeral_mounts = []
 
-if storage.instance_store_volumes? &&
-  File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
+if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
+
+  Chef::Log.info '/mnt/dev0 not already mounted.  Proceeding...'
 
   if node['ec2'] &&
+    storage.instance_store_volumes? &&
     node['ec2']['block_device_mapping_ephemeral0']
+
+    # Unmount anything we find mounted at '/mnt' (as long as it's empty)
+
+    Chef::Log.info 'Ec2 ephemeral storage detected.'
 
     fail 'Directory /mnt not empty' if Dir.entries('/mnt') - %w(lost+found . ..) != []
 
@@ -38,20 +45,29 @@ if storage.instance_store_volumes? &&
   end
 
   unless storage.dev_names.empty?
-    node.set['storage']['ephemeral_mounts'] =
-      storage.dev_names.each_with_index.map do |dev_name, i|
-        mount_point = "/mnt/dev#{i}"
+    # This function formats newly discovered devices, mounts them, then stores
+    # their name in our collector array ("ephemeral_mounts").
 
-        storage_format_mount mount_point do
-          device_name dev_name
-          action :nothing
-        end.run_action(:run)
+    Chef::Log.info 'Usable storage devices discovered.'
+    Chef::Log.debug "Storage devices: #{storage.dev_names.inspect}"
 
-        mount_point
-      end
+    ephemeral_mounts = storage.dev_names.each_with_index.map do |dev_name, i|
+      mount_point = "/mnt/dev#{i}"
+
+      storage_format_mount mount_point do
+        device_name dev_name
+        action :nothing
+      end.run_action(:run)
+
+      mount_point
+    end
   end
 else
-  node.set['storage']['ephemeral_mounts'] =
+  # If we find /mnt/dev0 already mounted (which implies that this recipe has
+  # already been run), just make sure the attribute gets populated.
+
+  Chef::Log.info '/mnt/dev0 already mounted.'
+  ephemeral_mounts =
     storage.dev_names.each_with_index.map { |_dev_name, i| "/mnt/dev#{i}" }
 
   # Uncomment the following code when https://github.com/opscode/chef/pull/1719
@@ -64,5 +80,8 @@ else
   # end
 end
 
+# Populate the attribute with whatever we gathered during this convergence.
+node.set['storage']['ephemeral_mounts'] = ephemeral_mounts
+
 Chef::Log.info 'Configured these ephemeral mounts: ' +
-  node['storage']['ephemeral_mounts'].join(' ') if node['storage']
+  node['storage']['ephemeral_mounts'].join(' ')
