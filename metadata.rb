@@ -1,7 +1,7 @@
 name             'storage'
 maintainer       'EverTrue, Inc.'
 maintainer_email 'eric.herot@evertrue.com'
-license          'All rights reserved'
+license          'Apache v2.0'
 description      'Installs/Configures storage'
 long_description 'Installs/Configures storage'
 version          '2.1.8'
