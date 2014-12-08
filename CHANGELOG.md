@@ -1,57 +1,59 @@
-# 2.1.8
+# storage CHANGELOG
+
+## v2.1.8 (2014-09-08)
 
 * Fix the way we deal with a lack of anything to mount and don't blow up when not on ec2
 * Test local vagrant storage provisioning (so that wrapper cookbooks stop choking on our crappy code)
 * Bump the AMI to a newer version
 
-# 2.1.7
+## v2.1.7 (2014-09-08)
 
 * Update to et_fog v1.1.1 to avoid issues with `apt-get update` & installing `build-essential` at compile time
 
-# 2.1.6
+## v2.1.6 (2014-08-05)
 
 * Confirm (using Fog) that the current instance flavor has instance storage
 
-# 2.1.5
+## v2.1.5 (2014-07-30)
 
 * Disable /mnt mount (instead of just unmounting it) and enable the new mounts
 
-# 2.1.4
+## v2.1.4 (2014-07-28)
 
 * Populate ephemeral_mounts attribute even if /mnt/dev is already mounted
 
-# 2.1.3
+## v2.1.3 (2014-07-17)
 
 * Use /proc/mounts (rather than node attributes) to see if we need to run
 * Fix method reference error in vagrant support
 
-# 2.1.2
+## v2.1.2 (2014-07-01)
 
 * s/ephemeral1/ephemeral0/ in library this time
 
-# 2.1.1
+## v2.1.1 (2014-06-30)
 
 * Look for ephemeral0 in ec2 attributes
 
-# 2.1.0
+## v2.1.0 (2014-06-26)
 
 * Fixed error making it impossible to converge twice
 * Move format-mount to a resource
 * Library-ify a bunch of small functions
 
-# 2.0.2
+## v2.0.2 (2014-06-26)
 
 * Add some real content to the README
 * Handle NPE by only printing mounts if there are any
 
-# 2.0.1
+## v2.0.1 (2014-06-25)
 
 * Do umount during precompile phase
 
-# 2.0.0
+## v2.0.0 (2014-05-06)
 
 * Add vagrant support
 
-# 1.0.1
+## v1.0.1 (2014-05-05)
 
 * Initial release
