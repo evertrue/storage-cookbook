@@ -6,5 +6,7 @@ description      'Installs/Configures storage'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '2.1.8'
 
+supports 'ubuntu', '>= 12.04'
+
 depends 'ohai'
 depends 'et_fog', '~> 1.1'
