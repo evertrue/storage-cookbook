@@ -1,5 +1,12 @@
 # storage CHANGELOG
 
+## v2.2.0 (2014-12-08)
+
+* Add testing on Ubuntu 14.04
+* Switch to open source license
+* Update for Serverspec v2
+* Clean up config & other misc. files
+
 ## v2.1.8 (2014-09-08)
 
 * Fix the way we deal with a lack of anything to mount and don't blow up when not on ec2
