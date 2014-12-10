@@ -37,8 +37,8 @@ module EverTools
         require 'fog'
 
         aws_keys = Chef::EncryptedDataBagItem.load(
-          'secrets',
-          'aws_credentials'
+          @node['storage']['credentials']['data_bag'],
+          @node['storage']['credentials']['data_bag_item']
         )[@node['storage']['aws_api_user']]
 
         @fog = Fog::Compute::AWS.new(
