@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v2.2.1 (2014-12-11)
+
+* Parameterize credentials data bag location (Fixes #3)
+
 ## v2.2.0 (2014-12-08)
 
 * Add testing on Ubuntu 14.04
