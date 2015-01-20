@@ -41,7 +41,7 @@ module EverTools
           @node['storage']['credentials']['data_bag_item']
         )[@node['storage']['aws_api_user']]
 
-        @fog = Fog::Compute::AWS.new(
+        Fog::Compute::AWS.new(
           aws_access_key_id: aws_keys['access_key_id'],
           aws_secret_access_key: aws_keys['secret_access_key']
         )
