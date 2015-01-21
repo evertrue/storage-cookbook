@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v2.2.2 (2015-01-21)
+
+* Fix copypasta in `EverTools::Storage.fog` method re: memoizing
+
 ## v2.2.1 (2014-12-11)
 
 * Parameterize credentials data bag location (Fixes #3)
