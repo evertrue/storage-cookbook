@@ -9,4 +9,4 @@ version          '2.2.2'
 supports 'ubuntu', '>= 12.04'
 
 depends 'ohai'
-depends 'et_fog', '~> 1.1'
+depends 'et_fog', '>= 1.1.0'
