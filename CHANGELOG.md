@@ -1,5 +1,10 @@
 # storage CHANGELOG
 
+## v2.2.3 (2015-03-31)
+
+* Use "greater than" version constraint for et_fog cookbook
+* Use blank credentials for connecting to AWS
+
 ## v2.2.2 (2015-01-21)
 
 * Fix copypasta in `EverTools::Storage.fog` method re: memoizing
