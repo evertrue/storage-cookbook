@@ -7,7 +7,7 @@ describe 'LVM Pool' do
   }.each do |device, mountpoint|
     describe file(mountpoint) do
       it do
-        should be_mounted.with(
+        is_expected.to be_mounted.with(
           device: device,
           type: 'ext3',
           options: {
