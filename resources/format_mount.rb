@@ -1,4 +1,5 @@
 actions :run
+default_action :run
 
 attribute :mount_point,
           kind_of: String,
