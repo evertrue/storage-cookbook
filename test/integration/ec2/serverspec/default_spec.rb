@@ -17,4 +17,8 @@ describe 'LVM Pool' do
       end
     end
   end
+
+  describe file('/mnt') do
+    it { is_expected.to_not be_mounted }
+  end
 end

@@ -70,14 +70,13 @@ else
   ephemeral_mounts =
     storage.dev_names.each_with_index.map { |_dev_name, i| "/mnt/dev#{i}" }
 
-  # Uncomment the following code when https://github.com/opscode/chef/pull/1719
-  # is actually merged and shipped.
-  #
-  # mount '/mnt' do
-  #   action :disable
-  #   device '/dev/xvdb'
-  #   only_if { !node['storage']['ephemeral_mounts'].size.zero? }
-  # end
+  # Shipped with Chef 12.0.0
+  # https://github.com/chef/chef/pull/1719
+  mount '/mnt' do
+    action :disable
+    device '/dev/xvdb'
+    only_if { !node['storage']['ephemeral_mounts'].size.zero? }
+  end
 end
 
 # Populate the attribute with whatever we gathered during this convergence.
