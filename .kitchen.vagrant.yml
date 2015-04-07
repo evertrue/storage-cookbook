@@ -6,7 +6,6 @@ driver:
 
 provisioner:
   name: chef_zero
-  encrypted_data_bag_secret_key_path: <%= ENV['HOME'] %>/.chef/encrypted_data_bag_secret
 
 platforms:
 - name: ubuntu-12.04
