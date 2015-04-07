@@ -1,5 +1,14 @@
 # storage CHANGELOG
 
+## v2.2.4 (2015-04-07)
+
+* Create an rspec test for disable_mount("/mnt")
+* Add a default action: run
+* Use rspec3 format in ServerSpec tests.
+* Disable mount[/mnt] if there are no ephemeral devices
+* Remove usage of encrypted data bag secret
+* Remove unused attributes for AWS credentials data bag
+
 ## v2.2.3 (2015-03-31)
 
 * Use "greater than" version constraint for et_fog cookbook
