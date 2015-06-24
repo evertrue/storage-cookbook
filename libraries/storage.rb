@@ -9,8 +9,12 @@ module EverTools
       elsif @node['etc']['passwd']['vagrant']
         Chef::Log.debug('Using vagrant storage')
         names = vagrant_dev_names
+      elsif defined?(ChefSpec)
+        Chef::Log.debug('Chefspec Detected, skipping mounts')
+        names = []
       else
         fail 'Can\'t figure out what kind of node we\'re running on.'
+        names = []
       end
       Chef::Log.debug 'Discovered ephemeral devices: ' + names.join(', ')
       names

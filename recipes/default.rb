@@ -19,7 +19,7 @@ include_recipe 'et_fog'
 storage = EverTools::Storage.new(node)
 ephemeral_mounts = []
 
-if File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
+if File.exist?('/proc/mounts') && File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
 
   Chef::Log.info '/mnt/dev0 not already mounted.  Proceeding...'
 
