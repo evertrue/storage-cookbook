@@ -1,5 +1,10 @@
 # storage CHANGELOG
 
+## v2.2.5 (2015-06-24)
+
+* Ensure that /proc/mounts exists before reading it
+* Return an empty array of mounts when running chefspec
+
 ## v2.2.4 (2015-04-07)
 
 * Create an rspec test for disable_mount("/mnt")
