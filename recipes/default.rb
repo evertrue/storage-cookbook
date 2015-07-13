@@ -24,8 +24,8 @@ if File.exist?('/proc/mounts') && File.readlines('/proc/mounts').grep(%r{/mnt/de
   Chef::Log.info '/mnt/dev0 not already mounted.  Proceeding...'
 
   if node['ec2'] &&
-    storage.instance_store_volumes? &&
-    node['ec2']['block_device_mapping_ephemeral0']
+     node['ec2']['block_device_mapping_ephemeral0'] &&
+     storage.instance_store_volumes?
 
     # Unmount anything we find mounted at '/mnt' (as long as it's empty)
 
