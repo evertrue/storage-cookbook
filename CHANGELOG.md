@@ -1,5 +1,10 @@
 # storage CHANGELOG
 
+## v2.2.6 (2015-07-13)
+
+* Delete the `node['storage']['ephemeral_mounts']` key if there are no ephemeral mounts (because many cookbooks check for this key without using .empty?)
+* Check `instance_store_volumes?` after `node['ec2']['block_device_mapping_ephemeral0']` because the former throws an exception when not on ec2
+
 ## v2.2.5 (2015-06-24)
 
 * Ensure that /proc/mounts exists before reading it
