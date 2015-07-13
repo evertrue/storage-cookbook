@@ -80,7 +80,12 @@ else
 end
 
 # Populate the attribute with whatever we gathered during this convergence.
-node.set['storage']['ephemeral_mounts'] = ephemeral_mounts
+if ephemeral_mounts.any?
+  node.set['storage']['ephemeral_mounts'] = ephemeral_mounts
 
-Chef::Log.info 'Configured these ephemeral mounts: ' +
-  node['storage']['ephemeral_mounts'].join(' ')
+  Chef::Log.info 'Configured these ephemeral mounts: ' +
+    node['storage']['ephemeral_mounts'].join(' ')
+else
+  Chef::Log.info 'No ephemeral mounts were found'
+  node.rm('storage', 'ephemeral_mounts')
+end
