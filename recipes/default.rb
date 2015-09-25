@@ -12,6 +12,10 @@
 
 # Find all ephemeral block devices and mount them in subdirectories inside /mnt
 
+if Chef::VersionConstraint.new('< 12.0.0').include? Chef::VERSION
+  fail 'This cookbook requires Chef 12'
+end
+
 Chef::Log.debug("Storage info: #{node['storage'].inspect}")
 
 include_recipe 'et_fog'
