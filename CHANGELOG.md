@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v2.2.7 (2015-09-25)
+
+* Add version constraint for Chef > 12
+
 ## v2.2.6 (2015-07-13)
 
 * Delete the `node['storage']['ephemeral_mounts']` key if there are no ephemeral mounts (because many cookbooks check for this key without using .empty?)
