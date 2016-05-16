@@ -22,3 +22,9 @@ describe 'LVM Pool' do
     it { is_expected.to_not be_mounted }
   end
 end
+
+describe 'storage' do
+  describe file '/mnt/ebs0' do
+    it { is_expected.to be_mounted.with device: '/dev/xvde' }
+  end
+end
