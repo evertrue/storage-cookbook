@@ -93,3 +93,5 @@ else
   Chef::Log.info 'No ephemeral mounts were found'
   node.rm('storage', 'ephemeral_mounts')
 end
+
+include_recipe 'storage::ebs'
