@@ -11,6 +11,7 @@ driver:
   flavor_id: c3.xlarge
   require_chef_omnibus: true
   username: ubuntu
+  iam_profile_name: test-ebs-attachment
 
 provisioner:
   name: chef_zero
@@ -35,3 +36,9 @@ suites:
       - recipe[storage::ec2test]
       - recipe[storage::default]
     attributes:
+      storage:
+        ebs_volumes:
+          vol1:
+            device: /dev/xvde
+            size: 2
+            delete_on_termination: true
