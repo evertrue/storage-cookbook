@@ -24,7 +24,7 @@ suites:
   - name: ec2
     driver:
       tags:
-        Name: storage-default-ubuntu-1404
+        Name: storage-ec2-ubuntu-1404
         Type: test
     run_list:
       - recipe[aws::ec2_hints]
