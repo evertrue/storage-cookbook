@@ -8,7 +8,8 @@ driver:
   instance_type: c3.xlarge
   interface: public
   iam_profile_name: test-ebs-attachment
-
+  tags:
+    Type: test
 
 transport:
   name: sftp
@@ -25,7 +26,6 @@ suites:
     driver:
       tags:
         Name: storage-ec2-ubuntu-1404
-        Type: test
     run_list:
       - recipe[aws::ec2_hints]
       - recipe[storage::default]
