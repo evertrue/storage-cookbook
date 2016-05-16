@@ -9,6 +9,7 @@ driver:
   interface: public
   iam_profile_name: test-ebs-attachment
 
+
 transport:
   name: sftp
   ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
@@ -18,12 +19,13 @@ provisioner:
 
 platforms:
 - name: ubuntu-14.04
-  tags:
-    Name: storage-default-ubuntu-1404
-    Type: test
 
 suites:
   - name: ec2
+    driver:
+      tags:
+        Name: storage-default-ubuntu-1404
+        Type: test
     run_list:
       - recipe[aws::ec2_hints]
       - recipe[storage::default]
