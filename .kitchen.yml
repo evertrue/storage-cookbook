@@ -1,34 +1,26 @@
 ---
 driver:
   name: ec2
-  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
-  aws_secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
-  aws_ssh_key_id: aws_dev
-  ssh_key: <%= ENV['HOME'] %>/.ssh/aws_dev.pem
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
   region: us-east-1
   availability_zone: us-east-1b
   security_group_ids: ['ci-testing']
-  flavor_id: c3.xlarge
-  require_chef_omnibus: true
-  username: ubuntu
+  instance_type: c3.xlarge
+  interface: public
   iam_profile_name: test-ebs-attachment
+
+transport:
+  name: sftp
+  ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
 
 provisioner:
   name: chef_zero
 
 platforms:
-- name: ubuntu-12.04
-  driver:
-    image_id: ami-e002a788
-    tags:
-      Name: storage-default-ubuntu-1204
-      Env: public
 - name: ubuntu-14.04
-  driver:
-    image_id: ami-d0ba0cb8
-    tags:
-      Name: storage-default-ubuntu-1404
-      Env: public
+  tags:
+    Name: storage-default-ubuntu-1404
+    Type: test
 
 suites:
   - name: ec2
