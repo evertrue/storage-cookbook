@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v3.0.1 (2016-05-19)
+
+* Only call ebs recipe if there are EBS volumes
+
 ## v3.0.0 (2016-05-19)
 
 * BREAKING: Switch to using aws::ec2_hints to load ohai hints (removing ec2test recipe)
