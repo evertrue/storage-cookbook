@@ -94,4 +94,4 @@ else
   node.rm('storage', 'ephemeral_mounts')
 end
 
-include_recipe 'storage::ebs'
+include_recipe 'storage::ebs' if node['storage']['ebs_volumes']
