@@ -1,5 +1,10 @@
 # storage CHANGELOG
 
+## v3.0.0 (2016-05-19)
+
+* BREAKING: Switch to using aws::ec2_hints to load ohai hints (removing ec2test recipe)
+* Create, mount, and, format EBS volumes listed in attributes
+
 ## v2.2.7 (2015-09-25)
 
 * Add version constraint for Chef > 12
