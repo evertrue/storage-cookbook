@@ -9,5 +9,5 @@ version          '3.0.1'
 supports 'ubuntu', '>= 12.04'
 
 depends 'ohai'
-depends 'et_fog', '>= 1.1.0'
+depends 'et_fog', '~> 2.0'
 depends 'aws', '~> 3.3'
