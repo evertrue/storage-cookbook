@@ -1,5 +1,10 @@
 # storage CHANGELOG
 
+## v4.0.0 (2016-05-31)
+
+* Update to `et_fog` ~> 2.0
+    - Updates the `apt` and `build-essential` deps
+
 ## v3.0.1 (2016-05-19)
 
 * Only call ebs recipe if there are EBS volumes

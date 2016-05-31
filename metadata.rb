@@ -4,7 +4,7 @@ maintainer_email 'eric.herot@evertrue.com'
 license          'Apache v2.0'
 description      'Installs/Configures storage'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '3.0.1'
+version          '4.0.0'
 
 supports 'ubuntu', '>= 12.04'
 
