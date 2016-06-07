@@ -1,5 +1,10 @@
 # storage CHANGELOG
 
+## v5.0.0 (2016-06-07)
+
+* Update to `et_fog` ~> 3.0
+    - Updates the `apt` and dep
+
 ## v4.0.0 (2016-05-31)
 
 * Update to `et_fog` ~> 2.0
