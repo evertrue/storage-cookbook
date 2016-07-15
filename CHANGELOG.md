@@ -2,8 +2,8 @@
 
 ## v5.0.0 (2016-06-07)
 
-* Update to `et_fog` ~> 3.0
-    - Updates the `apt` and dep
+* Update to `et_fog` ~> 4.0
+    - Drops `apt` dep in favor of Chef built-in apt
 
 ## v4.0.0 (2016-05-31)
 
