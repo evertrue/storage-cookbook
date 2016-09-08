@@ -16,6 +16,10 @@ module EverTools
         fail 'Can\'t figure out what kind of node we\'re running on.'
         names = []
       end
+
+      # Sometimes EC2/Ohai says that a device is present when it is not...
+      names = names.select { |name| File.exist? name }
+
       Chef::Log.debug 'Discovered ephemeral devices: ' + names.join(', ')
       names
     end
