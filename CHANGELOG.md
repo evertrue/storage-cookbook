@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v5.0.1 (2016-09-08)
+
+* Verify that device files actually exist before trying to mount+format them
+
 ## v5.0.0 (2016-06-07)
 
 * Update to `et_fog` ~> 4.0
