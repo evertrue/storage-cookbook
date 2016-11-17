@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe 'LVM Pool' do
   {
-    '/dev/xvdb' => '/mnt/dev0',
-    '/dev/xvdc' => '/mnt/dev1'
+    '/dev/xvde' => '/mnt/ebs0'
   }.each do |device, mountpoint|
     describe file(mountpoint) do
       it do

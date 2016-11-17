@@ -1,16 +1,14 @@
 ---
 driver:
   name: ec2
-  require_chef_omnibus: 12.13.37
+  require_chef_omnibus: 12.16.42
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
   region: us-east-1
-  availability_zone: us-east-1b
-  security_group_ids: ['ci-testing']
-  instance_type: c3.xlarge
-  interface: public
+  security_group_ids:
+    - sg-97e55ef2
+  subnet_id: subnet-a792da8f
+  interface: private
   iam_profile_name: test-ebs-attachment
-  tags:
-    Type: test
 
 transport:
   name: sftp
@@ -21,19 +19,25 @@ provisioner:
 
 platforms:
 - name: ubuntu-14.04
+  run_list:
+    - recipe[aws::ec2_hints]
+    - recipe[storage::default]
+  attributes:
+    storage:
+      ebs_volumes:
+        vol1:
+          device: /dev/xvde
+          size: 2
+          delete_on_termination: true
 
 suites:
-  - name: ec2
+  - name: ebs
     driver:
       tags:
-        Name: storage-ec2-ubuntu-1404
-    run_list:
-      - recipe[aws::ec2_hints]
-      - recipe[storage::default]
-    attributes:
-      storage:
-        ebs_volumes:
-          vol1:
-            device: /dev/xvde
-            size: 2
-            delete_on_termination: true
+        Name: storage-ebs-ubuntu-1404
+      instance_type: t2.medium
+  - name: es
+    driver:
+      tags:
+        Name: storage-es-ubuntu-1404
+      instance_type: c3.xlarge
