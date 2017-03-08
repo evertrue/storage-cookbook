@@ -9,6 +9,6 @@ attribute :device_name,
           required: true
 attribute :fs_type,
           kind_of: String,
-          default: 'ext3'
+          default: 'ext4'
 attribute :reserved_space,
           default: 0
