@@ -30,7 +30,10 @@ module EverTools
 
     def instance_store_volumes?
       f = fog.flavors.get(@node['ec2']['instance_type'])
-      fail "Unrecognized flavor: #{@node['ec2']['instance_type']}" if f.nil?
+      if f.nil?
+        Chef::Log.info "Unrecognized flavor: #{@node['ec2']['instance_type']}"
+        return false
+      end
       !f.instance_store_volumes.zero?
     end
 
