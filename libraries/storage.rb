@@ -1,28 +1,30 @@
 module EverTools
   class Storage
     def dev_names
-      names = []
-      if @node['ec2'] &&
-        @node['ec2']['block_device_mapping_ephemeral0']
-        Chef::Log.debug('Using ec2 storage')
-        names = ec2_dev_names
-      elsif @node['etc']['passwd']['vagrant']
-        Chef::Log.debug('Using vagrant storage')
-        names = vagrant_dev_names
-      elsif defined?(ChefSpec)
-        Chef::Log.debug('Chefspec Detected, skipping mounts')
+      @dev_names ||= begin
         names = []
-      else
-        fail 'Can\'t figure out what kind of node we\'re running on.'
-        names = []
+        if @node['ec2'] &&
+          @node['ec2']['block_device_mapping_ephemeral0']
+          Chef::Log.debug('Using ec2 storage')
+          names = ec2_dev_names
+        elsif @node['etc']['passwd']['vagrant']
+          Chef::Log.debug('Using vagrant storage')
+          names = vagrant_dev_names
+        elsif defined?(ChefSpec)
+          Chef::Log.debug('Chefspec Detected, skipping mounts')
+          names = []
+        else
+          fail 'Can\'t figure out what kind of node we\'re running on.'
+          names = []
+        end
+
+        Chef::Log.debug 'Converted ephemeral device names: ' + names.join(', ')
+        # Sometimes EC2/Ohai says that a device is present when it is not...
+        names = names.select { |name| File.exist? name }
+
+        Chef::Log.debug 'actually present ephemeral devices: ' + names.join(', ')
+        names
       end
-
-      Chef::Log.debug 'Converted ephemeral device names: ' + names.join(', ')
-      # Sometimes EC2/Ohai says that a device is present when it is not...
-      names = names.select { |name| File.exist? name }
-
-      Chef::Log.debug 'actually present ephemeral devices: ' + names.join(', ')
-      names
     end
 
     def mnt_device
