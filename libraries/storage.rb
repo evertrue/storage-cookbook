@@ -17,10 +17,11 @@ module EverTools
         names = []
       end
 
+      Chef::Log.debug 'Converted ephemeral device names: ' + names.join(', ')
       # Sometimes EC2/Ohai says that a device is present when it is not...
       names = names.select { |name| File.exist? name }
 
-      Chef::Log.debug 'Discovered ephemeral devices: ' + names.join(', ')
+      Chef::Log.debug 'actually present ephemeral devices: ' + names.join(', ')
       names
     end
 
@@ -58,13 +59,12 @@ module EverTools
     end
 
     def ec2_dev_names
-      e_block_devs = @node['ec2'].select do |k, _v|
-        k =~ /^block_device_mapping_ephemeral.*/
-      end
 
-      e_block_devs.map do |_k, v|
-        "/dev/#{v.sub(/^s/, 'xv')}"
-      end
+      e_block_devs = @node['ec2'].select { |k, _v| k =~ /^block_device_mapping_ephemeral.*/ }
+      Chef::Log.debug "ephemeral devices in Ohai: #{e_block_devs}"
+      r = e_block_devs.map { |_k, v| "/dev/#{v.sub(/^s/, 'xv')}" }
+      return r if r.any?
+      fail "e_block_devs did not parse correctly, no drives found: #{e_block_devs}"
     end
 
     def vagrant_dev_names
