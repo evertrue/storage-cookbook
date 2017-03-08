@@ -63,11 +63,21 @@ module EverTools
       r
     end
 
-    def ec2_dev_names
+    def nvme_devices
+      devices = Dir.glob('/dev/nvme*n*')
 
+      Chef::Log.debug "Found these NVME devices: #{devices.join ', '}" if devices.any?
+
+      # If there are any partitions, we can't include their host devices because we have an
+      # uncertain state. We'll exclude those devices (and their partitions) so as to avoid problems.
+      devices.reject { |d| devices.find { |p| p =~ /#{d}p\d+$/ } || d =~ /p\d+$/ }
+    end
+
+    def ec2_dev_names
       e_block_devs = @node['ec2'].select { |k, _v| k =~ /^block_device_mapping_ephemeral.*/ }
       Chef::Log.debug "ephemeral devices in Ohai: #{e_block_devs}"
       r = e_block_devs.map { |_k, v| "/dev/#{v.sub(/^s/, 'xv')}" }
+      r += nvme_devices
       return r if r.any?
       fail "e_block_devs did not parse correctly, no drives found: #{e_block_devs}"
     end
