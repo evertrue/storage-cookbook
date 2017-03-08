@@ -30,7 +30,9 @@ EC2 only (but it will fail cleanly on other platforms).
 
 ## Usage
 
-### storage::default
+### Recipes
+
+#### storage::default
 
 Include `storage` in a wrapper cookbook:
 
@@ -46,6 +48,26 @@ include_recipe 'storage::default'
     "recipe[storage::default]"
   ]
 }
+```
+
+### Resources
+
+#### format_mount
+
+Formats a device, creates a mount point for it, and the mounts it.
+
+##### Attributes
+
+* **mount_point** (name attribute) The directory where the filesystem should be mounted
+* **device_name** The path to the device (typically starts with `/dev`)
+* **fs_type** Filesystem type to use for formatting (default: `ext3`)
+
+e.g.
+```ruby
+  storage_format_mount '/mnt/dev0' do
+    device_name    '/dev/xvdb1'
+    fs_type        'ext3'
+  end
 ```
 
 ## Contributing
