@@ -1,27 +1,30 @@
 module EverTools
   class Storage
     def dev_names
-      names = []
-      if @node['ec2'] &&
-        @node['ec2']['block_device_mapping_ephemeral0']
-        Chef::Log.debug('Using ec2 storage')
-        names = ec2_dev_names
-      elsif @node['etc']['passwd']['vagrant']
-        Chef::Log.debug('Using vagrant storage')
-        names = vagrant_dev_names
-      elsif defined?(ChefSpec)
-        Chef::Log.debug('Chefspec Detected, skipping mounts')
+      @dev_names ||= begin
         names = []
-      else
-        fail 'Can\'t figure out what kind of node we\'re running on.'
-        names = []
+        if @node['ec2'] &&
+          @node['ec2']['block_device_mapping_ephemeral0']
+          Chef::Log.debug('Using ec2 storage')
+          names = ec2_dev_names
+        elsif @node['etc']['passwd']['vagrant']
+          Chef::Log.debug('Using vagrant storage')
+          names = vagrant_dev_names
+        elsif defined?(ChefSpec)
+          Chef::Log.debug('Chefspec Detected, skipping mounts')
+          names = []
+        else
+          fail 'Can\'t figure out what kind of node we\'re running on.'
+          names = []
+        end
+
+        Chef::Log.debug 'Converted ephemeral device names: ' + names.join(', ')
+        # Sometimes EC2/Ohai says that a device is present when it is not...
+        names = names.select { |name| File.exist? name }
+
+        Chef::Log.debug 'actually present ephemeral devices: ' + names.join(', ')
+        names
       end
-
-      # Sometimes EC2/Ohai says that a device is present when it is not...
-      names = names.select { |name| File.exist? name }
-
-      Chef::Log.debug 'Discovered ephemeral devices: ' + names.join(', ')
-      names
     end
 
     def mnt_device
@@ -61,13 +64,12 @@ module EverTools
     end
 
     def ec2_dev_names
-      e_block_devs = @node['ec2'].select do |k, _v|
-        k =~ /^block_device_mapping_ephemeral.*/
-      end
 
-      e_block_devs.map do |_k, v|
-        "/dev/#{v.sub(/^s/, 'xv')}"
-      end
+      e_block_devs = @node['ec2'].select { |k, _v| k =~ /^block_device_mapping_ephemeral.*/ }
+      Chef::Log.debug "ephemeral devices in Ohai: #{e_block_devs}"
+      r = e_block_devs.map { |_k, v| "/dev/#{v.sub(/^s/, 'xv')}" }
+      return r if r.any?
+      fail "e_block_devs did not parse correctly, no drives found: #{e_block_devs}"
     end
 
     def vagrant_dev_names
