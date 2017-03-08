@@ -1,0 +1,10 @@
+LineLength:
+  Max: 100
+
+# The default 10 lines limit is unrealistic.
+MethodLength:
+  Max: 50
+
+# Lining up the attributes of some methods is advantageous for readability
+Style/SpaceBeforeFirstArg:
+  Enabled: false
