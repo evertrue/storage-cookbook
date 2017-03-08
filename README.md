@@ -61,12 +61,14 @@ Formats a device, creates a mount point for it, and the mounts it.
 * **mount_point** (name attribute) The directory where the filesystem should be mounted
 * **device_name** The path to the device (typically starts with `/dev`)
 * **fs_type** Filesystem type to use for formatting (default: `ext3`)
+* **reserved_space** Percentage of space to reserve for the superuser (default: `0`)
 
 e.g.
 ```ruby
   storage_format_mount '/mnt/dev0' do
     device_name    '/dev/xvdb1'
     fs_type        'ext3'
+    reserved_space 5
   end
 ```
 
