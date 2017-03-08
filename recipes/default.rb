@@ -33,7 +33,7 @@ if File.exist?('/proc/mounts') && File.readlines('/proc/mounts').grep(%r{/mnt/de
 
     # Unmount anything we find mounted at '/mnt' (as long as it's empty)
 
-    Chef::Log.info 'Ec2 ephemeral storage detected.'
+    Chef::Log.info 'EC2 ephemeral storage detected.'
 
     fail 'Directory /mnt not empty' if Dir.entries('/mnt') - %w(lost+found . ..) != []
 
