@@ -48,7 +48,7 @@ if File.exist?('/proc/mounts') && File.readlines('/proc/mounts').grep(%r{/mnt/de
     end
   end
 
-  unless storage.dev_names.empty?
+  if storage.dev_names.any?
     # This function formats newly discovered devices, mounts them, then stores
     # their name in our collector array ("ephemeral_mounts").
 
