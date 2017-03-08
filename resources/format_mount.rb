@@ -10,3 +10,5 @@ attribute :device_name,
 attribute :fs_type,
           kind_of: String,
           default: 'ext3'
+attribute :reserved_space,
+          default: 0
