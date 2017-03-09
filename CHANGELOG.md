@@ -1,5 +1,17 @@
 # storage CHANGELOG
 
+## v6.0.0 (2017-03-09)
+
+* Discover NVMe devices when running on EC2
+* Override udev memory ballooning config on Ubuntu 16 (workaround for [this](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1668129) bug)
+* Convert LWRP to custom resource
+* **BREAKING:** Drop instance_store_volumes? method (no longer being used)
+* **BREAKING(ish):** Format using ext4 by default
+* Memoize dev_names helper method so that it runs only once
+* Add an attribute for `reserved_space`
+* Make error handling and logging a bit more paranoid
+* Also test on Ubuntu 16.04 (needed for NVMe)
+
 ## v5.0.1 (2016-09-08)
 
 * Verify that device files actually exist before trying to mount+format them
