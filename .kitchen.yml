@@ -16,6 +16,7 @@ transport:
 
 provisioner:
   name: chef_zero
+  log_level: debug
 
 platforms:
 - name: ubuntu-14.04
@@ -41,3 +42,8 @@ suites:
       tags:
         Name: storage-es-ubuntu-1404
       instance_type: c3.xlarge
+  - name: nvme
+    driver:
+      tags:
+        Name: storage-nvme-ubuntu-1404
+      instance_type: i3.large
