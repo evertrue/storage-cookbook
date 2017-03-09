@@ -1,1 +1,1 @@
-default['storage']['aws_api_user']                 = 'Storage'
+default['storage']['aws_api_user'] = 'Storage'
