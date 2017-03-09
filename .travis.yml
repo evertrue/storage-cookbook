@@ -19,9 +19,8 @@ env:
   - secure: h6BJmbXZb5oLnP5nTxqCZ8qZ9mUBKEfkbHkC12h74Vry2lcf64i7hnFm3V1fFIdPxkaznXGBBeWpI7fL9yHz/r5serB+xkExgn4ZwUxq/pWUO4NWgpVlC+wUERCpJq1pQywvy519mFp8227SG+4jkqZkVOKy82tSLb0P8LPIrfg=
   - secure: h9YtO5y7FqJqpsgIISUuNNJVS7m+8oq2OAMFoPUpZiwGLgoR8mDD3jcu23wdlje7lGvfNIjlsQvVo+i14fZ8DklRY6V9YiYFm5QLvphbFw+RQNMTl3+ZjrwCHWzoFhFRXnWkwycrXw7j3ik30hbP3H5PG1BHazwXfOhSv5tqtLk=
 before_install:
-- mkdir ~\/.ssh
 - openssl aes-256-cbc -K $encrypted_d73344282175_key -iv $encrypted_d73344282175_iv
-  -in travis_ci_ec2.pem.enc -out ~\/.ssh/travis_ci_ec2.pem -d
+  -in travis_ci_ec2.pem.enc -out ~/.ssh/travis_ci_ec2.pem -d
 install:
 - chef gem install kitchen-ec2 coveralls kitchen-sync
 before_script:
