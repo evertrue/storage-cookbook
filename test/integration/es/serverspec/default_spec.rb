@@ -2,15 +2,15 @@ require 'spec_helper'
 
 describe 'LVM Pool' do
   {
-    '/dev/xvdb' => '/mnt/dev0',
-    '/dev/xvdc' => '/mnt/dev1',
-    '/dev/xvde' => '/mnt/ebs0'
-  }.each do |device, mountpoint|
-    describe file(mountpoint) do
+    '/dev/xvdb' => { mountpoint: '/mnt/dev0', fstype: 'ext3' },
+    '/dev/xvdc' => { mountpoint: '/mnt/dev1', fstype: 'ext3' },
+    '/dev/xvde' => { mountpoint: '/mnt/ebs0', fstype: 'ext4' }
+  }.each do |device, prop|
+    describe file(prop[:mountpoint]) do
       it do
         is_expected.to be_mounted.with(
           device: device,
-          type: 'ext3',
+          type: prop[:fstype],
           options: {
             rw: true
           }
