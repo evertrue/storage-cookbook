@@ -11,4 +11,4 @@ chef_version '~> 12.10'
 
 depends 'ohai'
 depends 'et_fog', '~> 4.0'
-depends 'aws', '~> 3.3'
+depends 'aws', '~> 4.0'
