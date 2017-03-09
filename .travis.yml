@@ -1,0 +1,26 @@
+language: ruby
+rvm:
+- 2.2
+cache:
+  directories:
+  - "$HOME/.berkshelf"
+addons:
+  apt:
+    sources:
+    - chef-stable-precise
+    packages:
+    - chefdk
+env:
+  matrix:
+  - TEST=cookstyle
+  - TEST="foodcritic ."
+  - TEST="chef exec rspec"
+before_install:
+- chef --version
+- eval "$(chef shell-init bash)"
+- cookstyle --version
+- foodcritic --version
+install:
+- chef gem install kitchen-sync
+- berks
+script: "$TEST"
