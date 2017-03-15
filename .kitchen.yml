@@ -39,15 +39,15 @@ suites:
   - name: ebs
     driver:
       tags:
-        Name: storage-ebs-ubuntu-1404
+        Name: et-storage-ebs-test
       instance_type: t2.medium
   - name: es
     driver:
       tags:
-        Name: storage-es-ubuntu-1404
+        Name: et-storage-es-test
       instance_type: c3.xlarge
   - name: nvme
     driver:
       tags:
-        Name: storage-nvme-ubuntu-1404
+        Name: et-storage-nvme-test
       instance_type: i3.large
