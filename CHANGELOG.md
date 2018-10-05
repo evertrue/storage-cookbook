@@ -1,5 +1,13 @@
 # storage CHANGELOG
 
+## v6.0.2 (2018-10-04)
+
+* Dan - Allow nodes to override their IAM credentials and use Storage creds instead
+
+## v6.0.1
+
+* ???
+
 ## v6.0.0 (2017-03-09)
 
 * Discover NVMe devices when running on EC2
