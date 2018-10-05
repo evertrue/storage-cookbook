@@ -1,4 +1,4 @@
-unless Storage::Helpers.iam_profile_instance?
+unless Storage::Helpers.iam_profile_instance? && !node['storage']['use_storage_aws_credentials']
   creds = data_bag_item('secrets', 'aws_credentials')['Storage']
 end
 
