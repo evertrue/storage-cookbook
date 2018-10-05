@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v6.0.3 (2018-10-04)
+
+* Dan - Allow nodes to skip ephemeral mounts
+
 ## v6.0.2 (2018-10-04)
 
 * Dan - Allow nodes to override their IAM credentials and use Storage creds instead
