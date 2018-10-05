@@ -25,7 +25,9 @@ include_recipe 'storage::udev-fix'
 storage = EverTools::Storage.new(node)
 ephemeral_mounts = []
 
-if File.exist?('/proc/mounts') && File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
+if node['storage']['ignore_ephemeral_mounts']
+  Chef::Log.info 'Skipping ephemeral mounts...'
+elsif File.exist?('/proc/mounts') && File.readlines('/proc/mounts').grep(%r{/mnt/dev0}).size.zero?
 
   Chef::Log.info '/mnt/dev0 not already mounted.  Proceeding...'
 
@@ -92,7 +94,7 @@ if ephemeral_mounts.any?
     node['storage']['ephemeral_mounts'].join(' ')
 else
   Chef::Log.info 'No ephemeral mounts were found'
-  node.rm('storage', 'ephemeral_mounts')
+  node.rm('storage', 'ephemeral_mounts') unless node['storage']['ignore_ephemeral_mounts']
 end
 
 include_recipe 'storage::ebs' if node['storage']['ebs_volumes']
