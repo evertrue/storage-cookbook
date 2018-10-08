@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v6.0.4 (2018-10-08)
+
+* Dan - Bugfix: Override filesystem['by_mountpoint'] with values from ['filesystem2'] if necessary
+
 ## v6.0.3 (2018-10-04)
 
 * Dan - Allow nodes to skip ephemeral mounts
