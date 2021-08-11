@@ -12,7 +12,7 @@ module Storage
     def self.ebs_storage_device_name(node, conf)
       case conf['device']
       when '/dev/xvde'
-        node['ec2']['instance_type'] =~ /^t3\./ ? '/dev/nvme1n1' : conf['device']
+        File.exist?('/dev/nvme1n1') ? '/dev/nvme1n1' : conf['device']
       else
         conf['device']
       end
