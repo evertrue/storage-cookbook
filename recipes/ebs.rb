@@ -15,7 +15,7 @@ node['storage']['ebs_volumes'].each_with_index do |(name, conf), i|
   mount_point = "/mnt/ebs#{i}"
 
   storage_format_mount mount_point do
-    device_name Storage::Helpers.ebs_storage_device_name(conf)
+    device_name Storage::Helpers.ebs_storage_device_name(node, conf)
   end
 
   node.set['storage']['ebs_mounts'] = (node['storage']['ebs_mounts'] || []) | [mount_point]

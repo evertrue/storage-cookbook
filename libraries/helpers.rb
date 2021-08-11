@@ -9,10 +9,10 @@ module Storage
     end
 
     # Workaround for AWS and server device name mismatch
-    def self.ebs_storage_device_name(conf)
+    def self.ebs_storage_device_name(node, conf)
       case conf['device']
       when '/dev/xvde'
-        File.exists?('/dev/nvme1n1') ? '/dev/nvme1n1' : conf['device']
+        node['ec2']['instance_type'] =~ /^t3\./ ? '/dev/nvme1n1' : conf['device']
       else
         conf['device']
       end

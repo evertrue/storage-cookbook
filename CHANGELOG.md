@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v6.1.1 (2021-08-11)
+
+* Use instance_type to determine ebs storage device name
+
 ## v6.1.0 (2021-08-11)
 
 * Fix for formatting the storage_format_mount for ebs volumes
