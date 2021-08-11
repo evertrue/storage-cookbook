@@ -1,5 +1,9 @@
 # storage CHANGELOG
 
+## v6.1.0 (2021-08-11)
+
+* Fix for formatting the storage_format_mount for ebs volumes
+
 ## v6.0.4 (2018-10-08)
 
 * Dan - Bugfix: Override filesystem['by_mountpoint'] with values from ['filesystem2'] if necessary

@@ -7,5 +7,15 @@ module Storage
         URI 'http://169.254.169.254/2016-09-02/meta-data/iam/'
       ).code.to_i == 200
     end
+
+    # Workaround for AWS and server device name mismatch
+    def self.ebs_storage_device_name(conf)
+      case conf['device']
+      when '/dev/xvde'
+        File.exists?('/dev/nvme1n1') ? '/dev/nvme1n1' : conf['device']
+      else
+        conf['device']
+      end
+    end
   end
 end
