@@ -79,7 +79,7 @@ else
   mount '/mnt' do
     action :disable
     device '/dev/xvdb'
-    only_if { !node['storage']['ephemeral_mounts'].size.zero? }
+    only_if { !node['storage']['ephemeral_mounts'] || !node['storage']['ephemeral_mounts'].size.zero? }
   end
 end
 
